@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, toArray,mergeMap, map } from 'rxjs/operators';
 import { Grading } from '../models/grading';
 
 @Injectable({
@@ -9,10 +9,9 @@ import { Grading } from '../models/grading';
 })
 export class GradesService {
 
-  private api_url = 'http://localhost:3000 ';
+  api_url = 'http://localhost:3000/grading';
   constructor(private http: HttpClient) { }
 
-  getGrades(): Observable<Grading[]> {
-    return this.http.get<Grading[]>(this.api_url + '/grading').pipe(tap(console.log));
-  }
+  getGrades() { return this.http.get<Grading>(this.api_url).pipe(toArray()).pipe(map(arr => arr.sort((a: Grading, b: Grading) => a.name === b.name ? 0 : a.name ? 1 : -1))); }
+
 }

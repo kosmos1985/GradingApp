@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GradesService } from './service/grades.service';
 import { Grading } from './models/grading';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Grading } from './models/grading';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit{
-  grades;
+  grades: Grading[];
   editMode = false;
   nameGrade = '';
   percentFrom = '';
@@ -20,10 +22,10 @@ export class AppComponent implements OnInit{
   constructor(private http: GradesService) {
   };
 
- 
   ngOnInit() {
-    
-    this.grades = this.http.getGrades().subscribe();
+    this.http.getGrades().subscribe(gradesList => {
+      this.grades = gradesList;
+    });
     setTimeout(() => {
       this.config = {
         title: 'Grading list',
@@ -31,8 +33,12 @@ export class AppComponent implements OnInit{
         date: new Date().toDateString()
       };
     }, 500);
-    this.sortGrades();
-  }
+
+  };
+  // getGrades() {
+  //   const grades = this.http.getGrades().subscribe();
+  //   return console.log(grades);
+  // }
  
   clearGrades() {
     this.grades = [];
@@ -48,28 +54,28 @@ export class AppComponent implements OnInit{
       percent_to: this.percentTo,
       grade_description: this.description,
     };
-    this.grades.push(grade);
+    this.grades;
     this.nameGrade = '';
     this.percentFrom = '';
     this.percentTo = '';
     this.description = '';
-    this.sortGrades();
+    // this.sortGrades();
   }
   switchEditMode() {
     this.editMode = !this.editMode;
   }
-  // markTaskAsDone(task: Task) {
-  //   task.done = true;
-  //   this.sortTasks();
-  // }
+  // // markTaskAsDone(task: Task) {
+  // //   task.done = true;
+  // //   this.sortTasks();
+  // // }
   delateGrades(task: Grading) {
-    this.grades = this.grades.filter(e => e !== task);
-    this.sortGrades();
+    // this.grades = this.grades.filter(e => e !== task);
+    // this.sortGrades();
   }
-  private sortGrades() {
-    this.grades.sort((a: Grading, b: Grading) =>
-      a.name === b.name ? 0 : a.name ? 1 : -1
-    );
-  }
+  // private sortGrades() {
+  //   this.grades.sort((a: Grading, b: Grading) =>
+  //     a.name === b.name ? 0 : a.name ? 1 : -1
+  //   );
+  // }
 }
 
