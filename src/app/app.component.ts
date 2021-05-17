@@ -47,27 +47,22 @@ export class AppComponent implements OnInit, OnDestroy{
   
 
 
-  createGrades() {
-    const grade:Partial <Grading>= {
+  createGrades(formRef) {
+    const newGrade:Partial<Grading>= {
       name: this.nameGrade,
       percent_from: this.percentFrom,
       percent_to: this.percentTo,
       grade_description: this.description,
     };
-    this.grades;
-    this.nameGrade = '';
-    this.percentFrom = '';
-    this.percentTo = '';
-    this.description = '';
+    console.log(formRef.value);
+    this.http.postGrades(newGrade).subscribe();
   }
   switchEditMode() {
     this.editMode = !this.editMode;
   }
   
-  delateGrades(grade: Grading) {
-    // this.grades = this.grades.filter(e => e !== task);
-    // this.sortGrades();
-
+  removeGrades(id :number) {
+    this.http.deleteGrades(id).subscribe();
   }
   ngOnDestroy() {
     this.subscriptions.unsubscribe();

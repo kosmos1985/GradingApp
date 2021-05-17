@@ -16,26 +16,26 @@
   </div>
 
   <div class="row light-green" *ngIf="editMode">
-    <form class="col s12">
+    <form class="col s12"  (ngSubmit)="createGrades(formRef)" #formRef="ngForm">
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-          <input class="col s4" type="text" placeholder="      grade name" name="grade" [(ngModel)]="nameGrade" />
+          <input class="col s4" type="text" placeholder="      grade name" name="grade" [(ngModel)]="nameGrade" require/>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-            <input class="col s4" type="text" placeholder="      start value" name="start" [(ngModel)]="percentFrom" />
+            <input class="col s4" type="text" placeholder="      start value %" name="start" [(ngModel)]="percentFrom" require/>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-          <input class="col s4" type="text" placeholder="      end value" name="end" [(ngModel)]="percentTo" />
+          <input class="col s4" type="text" placeholder="      end value %" name="end" [(ngModel)]="percentTo" require/>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="icon_prefix2" class="materialize-textarea" placeholder="grade description" name="description" [(ngModel)]="description"></textarea>
-          <!-- <input class="validate" type="text" placeholder="grade description" [(ngModel)]="description" /> -->
         </div>
-        <button id="add" class="waves-effect waves-light btn-large" (click)="createGrades()" [disabled]="percentFrom === '' || percentTo === ''">+</button>
+        <button id="add" class="waves-effect waves-light btn-large"  [disabled]="percentFrom === '' || percentTo === ''">+</button>
+        <button id="reset" type="reset" class="waves-effect red darken-1 btn-large">Cancel</button>
       </div>
   </form>
   </div>
@@ -47,7 +47,7 @@
           {{i+1}}. <strong>{{grade.name}}</strong> : {{grade.percent_from}}% - {{grade.percent_to}}%  <strong>{{grade.grade_description}}</strong>
         </span>
         <div class="col s2 right-align">
-          <button class="btn-floating btn-small red" (click)="delateGrades(grade)">
+          <button class="btn-floating btn-small red" (click)="removeGrades(grade.id)">
             <i class="material-icons">remove</i>
           </button>
         </div>
