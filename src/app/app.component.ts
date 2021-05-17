@@ -9,16 +9,18 @@ import { Grading } from './models/grading';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit{
-  grades : Grading[];
+  grades;
   editMode = false;
   nameGrade = '';
-  percentFrom = 'enter a numeric value';
-  percentTo = 'enter a numeric value';
-  description = 'description of the evaluation';
+  percentFrom = '';
+  percentTo = '';
+  description = '';
   config: { [key: string]: string } = null;
  
   constructor(private http: GradesService) {
   };
+
+ 
   ngOnInit() {
     
     this.grades = this.http.getGrades().subscribe();
@@ -65,8 +67,8 @@ export class AppComponent implements OnInit{
     this.sortGrades();
   }
   private sortGrades() {
-    this.grades = this.grades.sort((a: Grading, b: Grading) =>
-      a === b ? 0 : a ? 1 : -1
+    this.grades.sort((a: Grading, b: Grading) =>
+      a.name === b.name ? 0 : a.name ? 1 : -1
     );
   }
 }

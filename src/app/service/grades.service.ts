@@ -9,10 +9,10 @@ import { Grading } from '../models/grading';
 })
 export class GradesService {
 
-  private api_url = 'http://localhost:3000 + /grading';
+  private api_url = 'http://localhost:3000 ';
   constructor(private http: HttpClient) { }
 
   getGrades(): Observable<Grading[]> {
-    return this.http.get<Grading[]>(this.api_url).pipe(tap(console.log));
+    return this.http.get<Grading[]>(this.api_url + '/grading').pipe(tap(console.log));
   }
 }
