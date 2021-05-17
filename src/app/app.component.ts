@@ -1,37 +1,27 @@
-import { Component } from '@angular/core';
-import { Task } from './task';
-// import { timeStamp } from 'console';
+import { Component, OnInit } from '@angular/core';
+import { GradesService } from './service/grades.service';
+import { Grading } from './models/grading';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  grades : Grading[];
   editMode = false;
-  taskName = 'Sugerowane zadanie codzienne: odkurzanie';
-  taskDate = '';
+  nameGrade = '';
+  percentFrom = 'enter a numeric value';
+  percentTo = 'enter a numeric value';
+  description = 'description of the evaluation';
   config: { [key: string]: string } = null;
-  tasks: Task[] = [
-    {
-      name: 'siłownia',
-      deadline: '2020-11-09',
-      done: false,
-    },
-    {
-      name: 'mycie czegokolwiek',
-      deadline: '2020-07-01',
-      done: true,
-    },
-    {
-      name: 'jedzenie krewetek',
-      deadline: '2020-03-03',
-      done: false,
-    },
-
-  ];
-
-  constructor() {
+ 
+  constructor(private http: GradesService) {
+  };
+  ngOnInit() {
+    
+    this.grades = this.http.getGrades().subscribe();
     setTimeout(() => {
       this.config = {
         title: 'Grading list',
@@ -39,23 +29,29 @@ export class AppComponent {
         date: new Date().toDateString()
       };
     }, 500);
-    this.sortTasks();
+    this.sortGrades();
   }
-  clearTasks() {
-    this.tasks = [];
-  }
+ 
+  clearGrades() {
+    this.grades = [];
+  };
+
+  
 
 
-  createTasks() {
-    const task: Task = {
-      name: this.taskName,
-      deadline: this.taskDate,
-      done: false,
+  createGrades() {
+    const grade: Grading = {
+      name: this.nameGrade,
+      percent_from: this.percentFrom,
+      percent_to: this.percentTo,
+      grade_description: this.description,
     };
-    this.tasks.push(task);
-    this.taskName = '';
-    this.taskDate = '';
-    this.sortTasks();
+    this.grades.push(grade);
+    this.nameGrade = '';
+    this.percentFrom = '';
+    this.percentTo = '';
+    this.description = '';
+    this.sortGrades();
   }
   switchEditMode() {
     this.editMode = !this.editMode;
@@ -64,13 +60,13 @@ export class AppComponent {
   //   task.done = true;
   //   this.sortTasks();
   // }
-  delateTask(task: Task) {
-    this.tasks = this.tasks.filter(e => e !== task);
-    this.sortTasks();
+  delateGrades(task: Grading) {
+    this.grades = this.grades.filter(e => e !== task);
+    this.sortGrades();
   }
-  private sortTasks() {
-    this.tasks = this.tasks.sort((a: Task, b: Task) =>
-      a.done === b.done ? 0 : a.done ? 1 : -1
+  private sortGrades() {
+    this.grades = this.grades.sort((a: Grading, b: Grading) =>
+      a === b ? 0 : a ? 1 : -1
     );
   }
 }

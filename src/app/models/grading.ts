@@ -1,7 +1,7 @@
 export interface Grading {
-    grade: string,
+    name: string,
     grade_description: string,
     percent_from: string,
     percent_to: string,
-    id: number
+    id?: number
 }
