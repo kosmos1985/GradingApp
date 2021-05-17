@@ -12,6 +12,8 @@ export class GradesService {
   api_url = 'http://localhost:3000/grading';
   constructor(private http: HttpClient) { }
 
-  getGrades() { return this.http.get<Grading>(this.api_url).pipe(toArray()).pipe(map(arr => arr.sort((a: Grading, b: Grading) => a.name === b.name ? 0 : a.name ? 1 : -1))); }
+  getGrades() {
+    return this.http.get<Grading>(this.api_url).pipe(map(arr => arr.sort((a: Grading, b: Grading) => a.name === b.name ? 0 : a.name ? 1 : -1))).pipe(tap(console.log));
+  }
 
 }
