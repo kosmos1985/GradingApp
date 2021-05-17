@@ -44,7 +44,7 @@
     <ng-container *ngFor="let grade of grades; let i = index " >
       <li class="collection-item row light-green darken-2" >
         <span class="col s10">
-          {{i+1}}. {{grade.name}} : {{grade.percent_from}}% - {{grade.percent_to}}%  <strong>{{grade.grade_description}}</strong>
+          {{i+1}}. <strong>{{grade.name}}</strong> : {{grade.percent_from}}% - {{grade.percent_to}}%  <strong>{{grade.grade_description}}</strong>
         </span>
         <div class="col s2 right-align">
           <button class="btn-floating btn-small red" (click)="delateGrades(grade)">

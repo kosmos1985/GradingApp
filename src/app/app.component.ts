@@ -34,12 +34,7 @@ export class AppComponent implements OnInit{
       };
     }, 500);
 
-  };
-  // getGrades() {
-  //   const grades = this.http.getGrades().subscribe();
-  //   return console.log(grades);
-  // }
- 
+  }; 
   clearGrades() {
     this.grades = [];
   };
@@ -59,23 +54,16 @@ export class AppComponent implements OnInit{
     this.percentFrom = '';
     this.percentTo = '';
     this.description = '';
-    // this.sortGrades();
   }
   switchEditMode() {
     this.editMode = !this.editMode;
   }
-  // // markTaskAsDone(task: Task) {
-  // //   task.done = true;
-  // //   this.sortTasks();
-  // // }
-  delateGrades(task: Grading) {
+  
+  delateGrades(grade: Grading) {
     // this.grades = this.grades.filter(e => e !== task);
     // this.sortGrades();
+
   }
-  // private sortGrades() {
-  //   this.grades.sort((a: Grading, b: Grading) =>
-  //     a.name === b.name ? 0 : a.name ? 1 : -1
-  //   );
-  // }
+
 }
 
