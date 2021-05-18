@@ -20,21 +20,42 @@
       <div class="row">
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-          <input class="col s4" type="text" placeholder="      grade name" name="grade" [(ngModel)]="nameGrade" require/>
+          <input class="col s4" type="text" placeholder="      grade name" name="grade" [(ngModel)]="nameGrade" required maxlength="1" #name="ngModel"/>
+          <ng-container *ngIf="name.invalid && name.touched">
+            <div class="card-panel red darken-1" *ngIf="name.errors.required">
+              Field is required
+            </div>
+          </ng-container>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-            <input class="col s4" type="text" placeholder="      start value %" name="start" [(ngModel)]="percentFrom" require/>
+            <input class="col s4" type="text" placeholder="      start value %" name="start" [(ngModel)]="percentFrom" required minlength="2" #start="ngModel"/>
+            <ng-container *ngIf="start.invalid && start.touched">
+              <div class="card-panel red darken-1" *ngIf="start.errors.required">
+                Field is required
+              </div>
+              <div class="card-panel red darken-1" *ngIf="start.errors.minlength">
+                Number is so schort
+              </div>
+            </ng-container>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
-          <input class="col s4" type="text" placeholder="      end value %" name="end" [(ngModel)]="percentTo" require/>
+          <input class="col s4" type="text" placeholder="      end value %" name="end" [(ngModel)]="percentTo" required minlength="2" #end="ngModel"/>
+          <ng-container *ngIf="end.invalid && end.touched">
+            <div class="card-panel red darken-1" *ngIf="end.errors.required">
+              Field is required
+            </div>
+            <div class="card-panel red darken-1" *ngIf="end.errors.minlength">
+              Number is so schort
+            </div>
+          </ng-container>
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">mode_edit</i>
           <textarea id="icon_prefix2" class="materialize-textarea" placeholder="grade description" name="description" [(ngModel)]="description"></textarea>
         </div>
-        <button id="add" class="waves-effect waves-light btn-large"  [disabled]="percentFrom === '' || percentTo === ''">+</button>
+        <button id="add" type="submit" class="waves-effect waves-light btn-large"  [disabled]="formRef.invalid">+</button>
         <button id="reset" type="reset" class="waves-effect red darken-1 btn-large">Cancel</button>
       </div>
   </form>

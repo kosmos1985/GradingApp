@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* Small corect style materialize framework */
 body{
     background-color: #cddc;
     color: white;
@@ -13,4 +13,22 @@ input{
 #reset{
     margin-top: 1%;
     margin-left: 86.5%;
+}
+
+/* Small correct responsive materialize style */
+@media only screen and (max-width: 600px) {
+    #add{
+        margin-left: 67%;
+     }
+     #reset{
+         margin-left: 66.5%;
+     }
+  }
+@media only screen and (min-width: 600px) {
+    #add{
+        margin-left: 77%;
+     }
+     #reset{
+         margin-left: 76.5%;
+     }
 }

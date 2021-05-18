@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GradesService } from './service/grades.service';
 import { Grading } from './models/grading';
-import { Observable, Subscription } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 
 
 @Component({
@@ -20,17 +20,16 @@ export class AppComponent implements OnInit, OnDestroy{
   config: { [key: string]: string } = null;
   private subscriptions = new Subscription();
  
-  constructor(private http: GradesService) {
-  };
-
+  constructor(private http: GradesService) {};
+ 
   ngOnInit() {
-    const sub = this.http.getGrades().subscribe(gradesList => {
-      this.grades = gradesList;
-      console.log(this.grades);
-    }, error => console.error(error),
-      ()=>console.log('Complite')
-    );
-    this.subscriptions.add(sub);
+      const sub = this.http.getGrades().subscribe(gradesList => {
+        this.grades = gradesList;
+        console.log(this.grades);
+      }, error => console.error(error),
+        ()=>console.log('Complite')
+      );
+      this.subscriptions.add(sub);
     setTimeout(() => {
       this.config = {
         title: 'Grading list',
@@ -40,12 +39,10 @@ export class AppComponent implements OnInit, OnDestroy{
     }, 500);
 
   }; 
+  
   clearGrades() {
     this.grades = [];
   };
-
-  
-
 
   createGrades(formRef) {
     const newGrade:Partial<Grading>= {
